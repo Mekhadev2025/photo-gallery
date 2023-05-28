@@ -1,0 +1,27 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family:"poppins",sans-serif;
+}
+
+nav{
+    background-color: rgb(67,1,128);
+    color:#fff;
+    padding: 1rem 5rem;
+}
+
+.nav__log{
+    letter-spacing:1px;
+
+}
+
+.button{
+    color:rgb(67,1,128);
+    font-size: 60px;
+    height:65px;
+    position:fixed;
+    right:0;
+    bottom:0;
+    margin:2rem;
+}
