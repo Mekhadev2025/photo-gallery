@@ -1,33 +1,35 @@
-const {Router}=require("express")
-const uploadMiddleWare =require("../middlewares/MulterMiddleware")
+const { Router } = require("express");
+const uploadMiddleWare = require("../middlewares/MulterMiddleware");
 
-const UploadModel =require("../models/UploadModel")
+const UploadModel = require("../models/UploadModel");
 
-router.get("/api/get",async(req,res)=>{
-    const allPhotos=await UploadModel.find().sort({createdAt:"descending"})
-    res.send(allPhotos)
-})
+const router = Router();
 
+router.get("/api/get", async (req, res) => {
+  const allPhotos = await UploadModel.find().sort({ createdAt: "descending" });
+  res.send(allPhotos);
+});
 
-const router =Router();
-router.post("/api/save",uploadMiddleWare.single("photo"),(req,res)=>{
-   const photo =req.file.filename;
+router.post("/api/save", uploadMiddleWare.single("photo"), (req, res) => {
+  if (!req.file) {
+    // Handle missing file error
+    return res.status(400).send("No file uploaded.");
+  }
 
-    console.log(photo);
+  const photo = req.file.filename;
 
-UploadModel.create(photo)
-    .then((data)=>{
-        console.log("Uploaded succesfully")
-        console.log(data)
-        res.send(data)
+  console.log(photo);
+
+  UploadModel.create({ photo: photo })
+    .then((data) => {
+      console.log("Uploaded successfully");
+      console.log(data);
+      res.send(data);
     })
-    .catch((err)=>{
-        console.log("err")
-    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("Error uploading file.");
+    });
+});
 
-}
-
-)
-
-
-module.exports=router
+module.exports = router;
