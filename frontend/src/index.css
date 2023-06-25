@@ -25,3 +25,10 @@ nav{
     bottom:0;
     margin:2rem;
 }
+.gallery{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:2em;
+    font-size:4rem;
+}
